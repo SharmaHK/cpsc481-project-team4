@@ -13,12 +13,7 @@ python3 battleship.py 20
 CPSC-481 Project
 ----------------
 Layout: 10x10 grid
-#	Class of ship	Size
-1	Carrier		5
-2	Battleship	4
-3	Cruiser		3
-4	Submarine	3
-5	Destroyer	2
+Carrier	= 5. Battleship = 4. Cruiser = 3. Submarine = 3. Destroyer = 2
 
 Rules (https://en.wikipedia.org/wiki/Battleship_(game)#Description)
 The game is played on four grids, two for each player. The grids are typically square – usually 10×10 – and the individual squares in the grid are identified by letter and number.[7] On one grid the player arranges ships and records the shots by the opponent. On the other grid the player records their own shots.
