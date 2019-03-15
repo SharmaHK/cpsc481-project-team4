@@ -54,10 +54,21 @@ class Board:
 			for y in range(0, size):
 				temp.append(None)
 			self.cells.append(temp)
+		self.ships = []
 
-	def addShip(self, x, y, size, orientation):
-		# make sure ship is on the board
-		# make sure the ship does not overlap other ships
+	def at(self, x, y):
+		if (x >= 0) and (x < size) and (y >= 0) and (y < size):
+			return cells[x][y]
+		else:
+			return None
+
+	def addShip(self, x, y, size, slope):
+		locations = []
+		locations.append([x, y])
+		for i in range(1, size-1):
+			# TODO calculate where the other points are and add them to locations
+		# Create a ship and create a ShipSegment for each location
+
 
 class Game:
 	def __init__(self, size=10):
@@ -67,5 +78,6 @@ class Game:
 
 	def gameStart(self):
 		# TODO
-		# add ships
+		# add AI ships to AI board
+		# add player ships to playerBoard
 		# start gameloop
