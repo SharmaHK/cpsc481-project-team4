@@ -47,7 +47,7 @@ class Ship:
 			return "Ship"
 
 class Board:
-	def __init__(self, size=10):
+	def __init__(self, size = 10):
 		self.cells = []
 		for x in range(0, size):
 			temp = []
@@ -71,7 +71,7 @@ class Board:
 
 
 class Game:
-	def __init__(self, size=10):
+	def __init__(self, size = 10):
 		self.board = Board(size)
 		self.currentPlayer = 0
 		self.turnCount = 0
