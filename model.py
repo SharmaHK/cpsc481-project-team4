@@ -1,10 +1,10 @@
 class ShipSegment:
 	def __init__(self, parent):
-		self.hit = False
+		self.beenhit = False
 		self.parent = parent
 
 	def hit(self):
-		self.hit = True
+		self.beenhit = True
 		self.parent.updateHits()
 
 	def __str__(self):
@@ -31,24 +31,25 @@ class Ship:
 			if segment.hit:
 				hits += 1
 
-		if hits == size:
+		if hits == self.size:
 			self.sunk = True
 
 	def __str__(self):
-		if size == 2:
+		if self.size == 2:
 			return "Destroyer"
-		elif size == 2:
+		elif self.size == 2:
 			return "Cruiser"
-		elif size == 4:
+		elif self.size == 4:
 			return "Battleship"
-		elif size == 5:
+		elif self.size == 5:
 			return "Carrier"
-		else
+		else:
 			return "Ship"
 
 class Board:
 	def __init__(self, size = 10):
 		self.cells = []
+		self.size = size
 		for x in range(0, size):
 			temp = []
 			for y in range(0, size):
@@ -57,21 +58,57 @@ class Board:
 		self.ships = []
 
 	def at(self, x, y):
-		if (x >= 0) and (x < size) and (y >= 0) and (y < size):
-			return cells[x][y]
-		else:
-			return None
+		if (0 <= x < self.size) and (0 <= y < self.size):
+			return self.cells[x][y]
+		return None
+
+	def valid(self, x, y):
+		if (0 <= x < self.size) and (0 <= y < self.size):
+			return True
+		return False
 
 	def addShip(self, x, y, size, slope):
+		"""Attempt to place a given ship at (x, y) with a given slope and size.
+
+		Here slope is one of ["down", "left", "up", "right"], which progress clockwise.
+		Returns either True if the placement succeeded, or False if it failed.
+		"""
+
+		assert slope in ["down", "left", "up", "right"], "Invalid slope given!"
+		assert self.valid(x, y), "Invalid location given!"
+
 		locations = []
 		locations.append([x, y])
+
+		dx = x
+		dy = y
+
 		for i in range(1, size-1):
-			# TODO calculate where the other points are and add them to locations
+			if slope == "down":
+				dy += 1
+			elif slope == "left":
+				dx -= 1
+			elif slope == "up":
+				dy -= 1
+			elif slope == "right":
+				dx += 1
+
+			if self.valid(dx, dy):
+				locations.append([dx, dy])
+			else:
+				# If we can't place a ship at that location, return false
+				return False
+
 		# Create a ship and create a ShipSegment for each location
+		newship = Ship(size)
+		for loc in locations:
+			self.cells[loc[0]][loc[1]] = ShipSegment(parent=newship)
+
+		return True
 
 
 class Game:
-	def __init__(self, size = 10):
+	def __init__(self, size=10):
 		self.board = Board(size)
 		self.currentPlayer = 0
 		self.turnCount = 0
@@ -81,3 +118,4 @@ class Game:
 		# add AI ships to AI board
 		# add player ships to playerBoard
 		# start gameloop
+		print("Starting")
