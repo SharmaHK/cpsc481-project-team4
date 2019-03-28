@@ -19,12 +19,6 @@ class Display:
 		pygame.display.set_caption("AI Battleship")
 		self.clock = pygame.time.Clock()
 
-	def eventLoop(self):
-		done = False
-		while not done:
-			# TODO: Handle mouseclicks and check for hits
-			print(done)
-
 	def updateScreen(self):
 		# Clear the background
 		self.screen.fill(BLACK)
