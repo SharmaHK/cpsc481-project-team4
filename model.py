@@ -106,16 +106,6 @@ class Board:
 
 		return True
 
+	# TODO: add a addRandomShips function to populate the AI board
 
-class Game:
-	def __init__(self, size=10):
-		self.board = Board(size)
-		self.currentPlayer = 0
-		self.turnCount = 0
 
-	def gameStart(self):
-		# TODO
-		# add AI ships to AI board
-		# add player ships to playerBoard
-		# start gameloop
-		print("Starting")
