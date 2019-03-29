@@ -108,4 +108,3 @@ class Board:
 
 	# TODO: add a addRandomShips function to populate the AI board
 
-
