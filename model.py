@@ -37,8 +37,10 @@ class Ship:
 	def __str__(self):
 		if self.size == 2:
 			return "Destroyer"
-		elif self.size == 2:
+		elif self.size == 3:
 			return "Cruiser"
+		elif self.size == 3:
+			return "Submarine"
 		elif self.size == 4:
 			return "Battleship"
 		elif self.size == 5:
