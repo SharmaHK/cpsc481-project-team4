@@ -85,7 +85,7 @@ class Board:
 		dx = x
 		dy = y
 
-		for i in range(1, size-1):
+		for i in range(0, size-1):
 			if slope == "down":
 				dy += 1
 			elif slope == "left":
@@ -109,4 +109,3 @@ class Board:
 		return True
 
 	# TODO: add a addRandomShips function to populate the AI board
-

@@ -11,11 +11,47 @@ class Game:
 
 	def placeShips(self):
 		# TODO: have player place ships
-		self.humanBoard.addShip(0, 0, 4, "down")
-		self.humanBoard.addShip(3, 3, 3, "right")
-		self.humanBoard.addShip(1, 4, 2, "left")
+		xCarrier = int(input('Enter x coordinate for Carrier: '))
+		yCarrier = int(input('Enter y coordinate for Carrier: '))
+		zCarrier = input('Enter slope[\'left\',\'right\',\'up\',\'down\'] for Carrier: ')
+		self.humanBoard.addShip(xCarrier, yCarrier, 5, zCarrier)
+
+		xBattleship = int(input('Enter x coordinate for Battleship: '))
+		yBattleship = int(input('Enter y coordinate for Battleship: '))
+		zBattleship = input('Enter slope[\'left\',\'right\',\'up\',\'down\'] for Battleship: ')
+		self.humanBoard.addShip(xBattleship, yBattleship, 4, zBattleship)
+
+		xSubmarine = int(input('Enter x coordinate for Submarine: '))
+		ySubmarine = int(input('Enter y coordinate for Submarine: '))
+		zSubmarine = input('Enter slope[\'left\',\'right\',\'up\',\'down\'] for Cruiser: ')
+		self.humanBoard.addShip(xSubmarine, ySubmarine, 3, zSubmarine)
+
+		xCruiser = int(input('Enter x coordinate for Cruiser: '))
+		yCruiser = int(input('Enter y coordinate for Cruiser: '))
+		zCruiser = input('Enter slope[\'left\',\'right\',\'up\',\'down\'] for Cruiser: ')
+		self.humanBoard.addShip(xCruiser, yCruiser, 3, zCruiser)
+
+		xDestroyer = int(input('Enter x coordinate for Destroyer: '))
+		yDestroyer = int(input('Enter y coordinate for Destroyer: '))
+		zDestroyer = input('Enter slope[\'left\',\'right\',\'up\',\'down\'] forDestroyer: ')
+		self.humanBoard.addShip(xDestroyer, yDestroyer, 2, zDestroyer)
+
+		"""
+		self.humanBoard.addShip(0, 0, 4, "down") # Battleship
+		self.humanBoard.addShip(3, 3, 3, "right")# Cruiser
+		self.humanBoard.addShip(1, 4, 2, "left") # Destroyer
+		self.humanBoard.addShip(5, 7, 5, "left") # Carrier
+		self.humanBoard.addShip(9, 5, 3, "left") # Submarine
+		"""
 
 		# TODO: generate random ships for the AI
+		"""
+		self.aiBoard.addShip(0, 0, 5, "down") # Battleship
+		self.aiBoard.addShip(3, 3, 4, "right")# Cruiser
+		self.aiBoard.addShip(1, 4, 3, "left") # Destroyer
+		self.aiBoard.addShip(5, 7, 6, "left") # Carrier
+		self.aiBoard.addShip(9, 5, 4, "left") # Submarine
+		"""
 
 	def gameLoop(self):
 		done = False
