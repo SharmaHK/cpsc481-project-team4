@@ -53,6 +53,8 @@ class Display:
 				acell = game.aiBoard.at(x, y)
 
 				if isinstance(acell, ShipSegment):
+					#Change C_AISHIP to C_WATER to hide AI ships
+					pygame.draw.rect(self.screen, C_AISHIP, (dx, dy, CELLSIZE, CELLSIZE))
 					if acell.beenhit:
 						pygame.draw.rect(self.screen, C_AISHIP, (dx, dy, CELLSIZE, CELLSIZE))
 				else:
