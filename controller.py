@@ -139,16 +139,14 @@ class Game:
 				# TODO: Handle mouseclicks and check for hits
 				# TODO: translate an (x, y) mouseclick into a hit/miss
 				x, y = event.pos
-				aiX = (x//50)-12
-				aiY = y//50
-				print("Mouseclick at", aiX, ",", aiY)
+				cellX, cellY, board = self.display.translateXY(x, y)
+				print("Mouseclick at", cellX, ",", cellY, "on board", self.display.translateBoard(board))
 			self.display.updateScreen(self)
 
 	def play(self):
 		# TODO: Initialize the display and render the empty grid
 		print("Initializing display...")
-		# TODO: find a better way to calculate the display size
-		self.display = Display(1100, 510)
+		self.display = Display(self.size)
 		self.display.updateScreen(self)
 
 		print("Asking player to place ships...")
