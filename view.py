@@ -9,9 +9,9 @@ C_PLAYERHIT = (255, 0, 255)
 C_WATER = (0, 0, 255)
 C_AISHIP = (255, 0, 0)
 
-MARGIN = 5
+MARGIN = 1
 CELLSIZE = 50
-GUTTER = 100
+GUTTER = 80
 
 class Display:
 	def __init__(self, width, height):

@@ -1,5 +1,6 @@
 from model import *
 from view import *
+import random
 
 class Game:
 	def __init__(self, size=10):
@@ -11,6 +12,7 @@ class Game:
 
 	def placeShips(self):
 		# TODO: have player place ships
+		"""
 		xCarrier = int(input('Enter x coordinate for Carrier: '))
 		yCarrier = int(input('Enter y coordinate for Carrier: '))
 		zCarrier = input('Enter slope[\'left\',\'right\',\'up\',\'down\'] for Carrier: ')
@@ -42,15 +44,85 @@ class Game:
 		self.humanBoard.addShip(1, 4, 2, "left") # Destroyer
 		self.humanBoard.addShip(5, 7, 5, "left") # Carrier
 		self.humanBoard.addShip(9, 5, 3, "left") # Submarine
-		"""
 
 		# TODO: generate random ships for the AI
+		randIntX = random.randint(0,9)
+		randIntY = random.randint(0,9)
+		randShip = random.randint(2,5)
+		randIntSlope = random.randint(0,3)
+		randSlope = ""
+		if randIntSlope is 0:
+			randSlope = "right"
+		elif randIntSlope is 1:
+			randSlope = "down"
+		elif randIntSlope is 2:
+			randSlope = "left"
+		elif randIntSlope is 3:
+			randSlope = "up"
+		self.aiBoard.addShip(randIntX, randIntY, 4, randSlope) # Battleship
+
+		randIntX = random.randint(0,9)
+		randIntY = random.randint(0,9)
+		randShip = random.randint(2,5)
+		randIntSlope = random.randint(0,3)
+		if randIntSlope is 0:
+			randSlope = "right"
+		elif randIntSlope is 1:
+			randSlope = "down"
+		elif randIntSlope is 2:
+			randSlope = "left"
+		elif randIntSlope is 3:
+			randSlope = "up"
+		self.aiBoard.addShip(randIntX, randIntY, 3, randSlope)# Cruiser
+
+		randIntX = random.randint(0,9)
+		randIntY = random.randint(0,9)
+		randShip = random.randint(2,5)
+		randIntSlope = random.randint(0,3)
+		if randIntSlope is 0:
+			randSlope = "right"
+		elif randIntSlope is 1:
+			randSlope = "down"
+		elif randIntSlope is 2:
+			randSlope = "left"
+		elif randIntSlope is 3:
+			randSlope = "up"
+		self.aiBoard.addShip(randIntX, randIntY, 2, randSlope) # Destroyer
+
+		randIntX = random.randint(0,9)
+		randIntY = random.randint(0,9)
+		randShip = random.randint(2,5)
+		randIntSlope = random.randint(0,3)
+		if randIntSlope is 0:
+			randSlope = "right"
+		elif randIntSlope is 1:
+			randSlope = "down"
+		elif randIntSlope is 2:
+			randSlope = "left"
+		elif randIntSlope is 3:
+			randSlope = "up"
+		self.aiBoard.addShip(randIntX, randIntY, 5, randSlope) # Carrier
+
+		randIntX = random.randint(0,9)
+		randIntY = random.randint(0,9)
+		randShip = random.randint(2,5)
+		randIntSlope = random.randint(0,3)
+		if randIntSlope is 0:
+			randSlope = "right"
+		elif randIntSlope is 1:
+			randSlope = "down"
+		elif randIntSlope is 2:
+			randSlope = "left"
+		elif randIntSlope is 3:
+			randSlope = "up"
+		self.aiBoard.addShip(randIntX, randIntY, 3, randSlope) # Submarine
+
 		"""
-		self.aiBoard.addShip(0, 0, 5, "down") # Battleship
-		self.aiBoard.addShip(3, 3, 4, "right")# Cruiser
-		self.aiBoard.addShip(1, 4, 3, "left") # Destroyer
-		self.aiBoard.addShip(5, 7, 6, "left") # Carrier
-		self.aiBoard.addShip(9, 5, 4, "left") # Submarine
+		self.aiBoard.addShip(0, 0, 4, "down") # Battleship
+		self.aiBoard.addShip(3, 3, 3, "right")# Cruiser
+		self.aiBoard.addShip(1, 4, 2, "left") # Destroyer
+		self.aiBoard.addShip(5, 7, 5, "left") # Carrier
+		self.aiBoard.addShip(9, 5, 3, "left") # Submarine
 		"""
 
 	def gameLoop(self):
@@ -63,19 +135,20 @@ class Game:
 				self.display.close()
 				done = True
 				continue
-			elif event.type == pygame.MOUSEBUTTONUP:
+			if event.type == pygame.MOUSEBUTTONDOWN:
 				# TODO: Handle mouseclicks and check for hits
 				# TODO: translate an (x, y) mouseclick into a hit/miss
 				x, y = event.pos
-				print("Mouseclick at", x, ",", y)
-
+				aiX = (x//50)-12
+				aiY = y//50
+				print("Mouseclick at", aiX, ",", aiY)
 			self.display.updateScreen(self)
 
 	def play(self):
 		# TODO: Initialize the display and render the empty grid
 		print("Initializing display...")
 		# TODO: find a better way to calculate the display size
-		self.display = Display(1205, 555)
+		self.display = Display(1100, 510)
 		self.display.updateScreen(self)
 
 		print("Asking player to place ships...")
