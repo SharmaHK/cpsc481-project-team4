@@ -138,17 +138,22 @@ class Game:
 			if event.type == pygame.MOUSEBUTTONDOWN:
 				# TODO: Handle mouseclicks and check for hits
 				# TODO: translate an (x, y) mouseclick into a hit/miss
+				"""
 				x, y = event.pos
-				aiX = (x//50)-12
+				aiX = (x//50)-12+2
 				aiY = y//50
-				print("Mouseclick at", aiX, ",", aiY)
+				"""
+				pos = pygame.mouse.get_pos()
+				column = (pos[0] // (50 + 2)) - 12 #CELLSIZE + MARGIN
+				row = pos[1] // (50 + 2)
+				print("Mouseclick at", column, ",", row)
 			self.display.updateScreen(self)
 
 	def play(self):
 		# TODO: Initialize the display and render the empty grid
 		print("Initializing display...")
 		# TODO: find a better way to calculate the display size
-		self.display = Display(1100, 510)
+		self.display = Display(1124, 523)
 		self.display.updateScreen(self)
 
 		print("Asking player to place ships...")
