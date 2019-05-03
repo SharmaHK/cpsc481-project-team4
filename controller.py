@@ -39,6 +39,7 @@ class Game:
 		self.humanBoard.addShip(xDestroyer, yDestroyer, 2, zDestroyer)
 
 		"""
+		"""
 		self.humanBoard.addShip(0, 0, 4, "down") # Battleship
 		self.humanBoard.addShip(3, 3, 3, "right")# Cruiser
 		self.humanBoard.addShip(1, 4, 2, "left") # Destroyer
@@ -116,7 +117,7 @@ class Game:
 		elif randIntSlope is 3:
 			randSlope = "up"
 		self.aiBoard.addShip(randIntX, randIntY, 3, randSlope) # Submarine
-
+		"""
 		"""
 		self.aiBoard.addShip(0, 0, 4, "down") # Battleship
 		self.aiBoard.addShip(3, 3, 3, "right")# Cruiser
@@ -124,6 +125,135 @@ class Game:
 		self.aiBoard.addShip(5, 7, 5, "left") # Carrier
 		self.aiBoard.addShip(9, 5, 3, "left") # Submarine
 		"""
+		randPlayerBoard = random.randint(0,9)
+		randAiBoard = random.randint(0,9)
+
+		#Generating Player Board
+		if randPlayerBoard is 0:
+			self.humanBoard.addShip(0, 0, 4, "down") # Battleship
+			self.humanBoard.addShip(3, 3, 3, "right")# Cruiser
+			self.humanBoard.addShip(1, 4, 2, "left") # Destroyer
+			self.humanBoard.addShip(5, 7, 5, "left") # Carrier
+			self.humanBoard.addShip(9, 5, 3, "left") # Submarine
+		elif randPlayerBoard is 1:
+			self.humanBoard.addShip(1, 9, 4, "right")
+			self.humanBoard.addShip(1, 1, 3, "right")
+			self.humanBoard.addShip(9, 9, 2, "up")
+			self.humanBoard.addShip(1, 7, 5, "right")
+			self.humanBoard.addShip(7, 4, 3, "up")
+		elif randPlayerBoard is 2:
+			self.humanBoard.addShip(6, 8, 4, "up")
+			self.humanBoard.addShip(9, 2, 3, "down")
+			self.humanBoard.addShip(8, 9, 2, "left")
+			self.humanBoard.addShip(1, 2, 5, "down")
+			self.humanBoard.addShip(1, 8, 3, "right")
+		elif randPlayerBoard is 3:
+			self.humanBoard.addShip(5, 4, 4, "right")
+			self.humanBoard.addShip(1, 3, 3, "right")
+			self.humanBoard.addShip(8, 8, 2, "up")
+			self.humanBoard.addShip(1, 8, 5, "right")
+			self.humanBoard.addShip(6, 6, 3, "left")
+		elif randPlayerBoard is 4:
+			self.humanBoard.addShip(8, 8, 4, "up")
+			self.humanBoard.addShip(3, 3, 3, "down")
+			self.humanBoard.addShip(1, 8, 2, "left")
+			self.humanBoard.addShip(1, 1, 5, "down")
+			self.humanBoard.addShip(9, 3, 3, "left")
+		elif randPlayerBoard is 5:
+			self.humanBoard.addShip(8, 1, 4, "down")
+			self.humanBoard.addShip(8, 8, 3, "left")
+			self.humanBoard.addShip(3, 4, 2, "left")
+			self.humanBoard.addShip(1, 2, 5, "right")
+			self.humanBoard.addShip(2, 9, 3, "up")
+		elif randPlayerBoard is 6:
+			self.humanBoard.addShip(1, 8, 4, "right")
+			self.humanBoard.addShip(8, 8, 3, "left")
+			self.humanBoard.addShip(1, 2, 2, "right")
+			self.humanBoard.addShip(6, 5, 5, "up")
+			self.humanBoard.addShip(1, 6, 3, "right")
+		elif randPlayerBoard is 7:
+			self.humanBoard.addShip(9, 3, 4, "down")
+			self.humanBoard.addShip(1, 8, 3, "up")
+			self.humanBoard.addShip(3, 4, 2, "up")
+			self.humanBoard.addShip(2, 1, 5, "right")
+			self.humanBoard.addShip(9, 0, 3, "left")
+		elif randPlayerBoard is 8:
+			self.humanBoard.addShip(1, 8, 4, "right")
+			self.humanBoard.addShip(5, 4, 3, "right")
+			self.humanBoard.addShip(1, 1, 2, "right")
+			self.humanBoard.addShip(1, 6, 5, "right")
+			self.humanBoard.addShip(6, 9, 3, "right")
+		elif randPlayerBoard is 9:
+			self.humanBoard.addShip(8, 8, 4, "up")
+			self.humanBoard.addShip(1, 1, 3, "right")
+			self.humanBoard.addShip(4, 5, 2, "right")
+			self.humanBoard.addShip(9, 0, 5, "left")
+			self.humanBoard.addShip(2, 5, 3, "up")
+
+		#Generating AI Board
+		if randAiBoard is 0:
+			self.aiBoard.addShip(0, 0, 4, "down") # Battleship
+			self.aiBoard.addShip(3, 3, 3, "right")# Cruiser
+			self.aiBoard.addShip(1, 4, 2, "left") # Destroyer
+			self.aiBoard.addShip(5, 7, 5, "left") # Carrier
+			self.aiBoard.addShip(9, 5, 3, "left") # Submarine
+		elif randAiBoard is 1:
+			self.aiBoard.addShip(1, 9, 4, "right")
+			self.aiBoard.addShip(1, 1, 3, "right")
+			self.aiBoard.addShip(9, 9, 2, "up")
+			self.aiBoard.addShip(1, 7, 5, "right")
+			self.aiBoard.addShip(7, 4, 3, "up")
+		elif randAiBoard is 2:
+			self.aiBoard.addShip(6, 8, 4, "up")
+			self.aiBoard.addShip(9, 2, 3, "down")
+			self.aiBoard.addShip(8, 9, 2, "left")
+			self.aiBoard.addShip(1, 2, 5, "down")
+			self.aiBoard.addShip(1, 8, 3, "right")
+		elif randAiBoard is 3:
+			self.aiBoard.addShip(5, 4, 4, "right")
+			self.aiBoard.addShip(1, 3, 3, "right")
+			self.aiBoard.addShip(8, 8, 2, "up")
+			self.aiBoard.addShip(1, 8, 5, "right")
+			self.aiBoard.addShip(6, 6, 3, "left")
+		elif randAiBoard is 4:
+			self.aiBoard.addShip(8, 8, 4, "up")
+			self.aiBoard.addShip(3, 3, 3, "down")
+			self.aiBoard.addShip(1, 8, 2, "left")
+			self.aiBoard.addShip(1, 1, 5, "down")
+			self.aiBoard.addShip(9, 3, 3, "left")
+		elif randAiBoard is 5:
+			self.aiBoard.addShip(8, 1, 4, "down")
+			self.aiBoard.addShip(8, 8, 3, "left")
+			self.aiBoard.addShip(3, 4, 2, "left")
+			self.aiBoard.addShip(1, 2, 5, "right")
+			self.aiBoard.addShip(2, 9, 3, "up")
+		elif randAiBoard is 6:
+			self.aiBoard.addShip(1, 8, 4, "right")
+			self.aiBoard.addShip(8, 8, 3, "left")
+			self.aiBoard.addShip(1, 2, 2, "right")
+			self.aiBoard.addShip(6, 5, 5, "up")
+			self.aiBoard.addShip(1, 6, 3, "right")
+		elif randAiBoard is 7:
+			self.aiBoard.addShip(9, 3, 4, "down")
+			self.aiBoard.addShip(1, 8, 3, "up")
+			self.aiBoard.addShip(3, 4, 2, "up")
+			self.aiBoard.addShip(2, 1, 5, "right")
+			self.aiBoard.addShip(9, 0, 3, "left")
+		elif randAiBoard is 8:
+			self.aiBoard.addShip(1, 8, 4, "right")
+			self.aiBoard.addShip(5, 4, 3, "right")
+			self.aiBoard.addShip(1, 1, 2, "right")
+			self.aiBoard.addShip(1, 6, 5, "right")
+			self.aiBoard.addShip(6, 9, 3, "right")
+		elif randAiBoard is 9:
+			self.aiBoard.addShip(8, 8, 4, "up")
+			self.aiBoard.addShip(1, 1, 3, "right")
+			self.aiBoard.addShip(4, 5, 2, "right")
+			self.aiBoard.addShip(9, 0, 5, "left")
+			self.aiBoard.addShip(2, 5, 3, "up")
+
+
+
 
 	def gameLoop(self):
 		done = False
