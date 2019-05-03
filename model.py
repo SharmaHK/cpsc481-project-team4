@@ -1,7 +1,11 @@
+# Declare directions for convenience
+UP, DOWN, LEFT, RIGHT = range(4)
+
 class ShipSegment:
 	def __init__(self, parent):
 		self.beenhit = False
 		self.parent = parent
+		parent.segments.append(self)
 
 	def hit(self):
 		self.beenhit = True
@@ -69,15 +73,24 @@ class Board:
 			return True
 		return False
 
+	def shoot(self, x, y):
+		target = self.at(x, y)
+		if target:
+			target.hit()
+			return True
+		else:
+			return False
+
+
 	def addShip(self, x, y, size, slope):
 		"""Attempt to place a given ship at (x, y) with a given slope and size.
 
-		Here slope is one of ["down", "left", "up", "right"], which progress clockwise.
+		Here slope is one of [UP, DOWN, LEFT, RIGHT], which progress clockwise.
 		Returns either True if the placement succeeded, or False if it failed.
 		"""
 
-		assert slope in ["down", "left", "up", "right"], "Invalid slope given!"
-		assert self.valid(x, y), "Invalid location given!"
+		assert slope in [UP, DOWN, LEFT, RIGHT], "Invalid slope given!"
+		assert self.valid(x, y), str(x) + " , " + str(y) + " Invalid location given!"
 
 		locations = []
 		locations.append([x, y])
@@ -86,13 +99,13 @@ class Board:
 		dy = y
 
 		for i in range(0, size-1):
-			if slope == "down":
+			if slope == DOWN:
 				dy += 1
-			elif slope == "left":
+			elif slope == LEFT:
 				dx -= 1
-			elif slope == "up":
+			elif slope == UP:
 				dy -= 1
-			elif slope == "right":
+			elif slope == RIGHT:
 				dx += 1
 
 			if self.valid(dx, dy):
@@ -107,5 +120,3 @@ class Board:
 			self.cells[loc[0]][loc[1]] = ShipSegment(parent=newship)
 
 		return True
-
-	# TODO: add a addRandomShips function to populate the AI board
