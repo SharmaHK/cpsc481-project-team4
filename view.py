@@ -11,7 +11,7 @@ C_AISHIP = (255, 0, 0)
 
 MARGIN = 5
 GUTTER = 150
-CELLSIZE = 50
+CELLSIZE = 25
 HITRADIUS = 25
 
 PLAYERBOARD, AIBOARD = range(2)
@@ -95,7 +95,7 @@ class Display:
 		u = 0
 		v = 0
 
-		if 0 <= x <= self.boardsize:
+		if 0 <= x <= (self.boardsize + self.totalmargins):
 			u = x // (CELLSIZE + MARGIN)
 			v = y // (CELLSIZE + MARGIN)
 			board = PLAYERBOARD
