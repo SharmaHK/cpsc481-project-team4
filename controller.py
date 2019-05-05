@@ -1,14 +1,19 @@
 from model import *
 from view import *
+from ai import *
 import random
 
 class Game:
 	def __init__(self, size=10):
 		self.humanBoard = Board(size)
 		self.aiBoard = Board(size)
+		self.ai = SimpleAI(1000)
 		self.humanTurn = True
 		self.turnCount = 0
+		self.humanScore = 0
+		self.aiScore = 0
 		self.size = size
+		self.winner = None
 
 	def placeShips(self):
 		# Randomly generate player ships
@@ -21,7 +26,6 @@ class Game:
 			if self.humanBoard.addShip(x, y, size, slope):
 				remaining -= 1
 
-
 		# Randomly generate AI ships
 		remaining = 5
 		while remaining > 0:
@@ -32,40 +36,54 @@ class Game:
 			if self.aiBoard.addShip(x, y, size, slope):
 				remaining -= 1
 
-
-
-
 	def gameLoop(self):
+		self.display.updateScreen(self)
 		done = False
+
 		while not done:
-			event = pygame.event.wait()
+			if self.humanTurn:
+				playerDone = False
+				while not playerDone:
+					event = pygame.event.wait()
 
-			if event.type == pygame.QUIT:
-				print("Closing game...")
-				self.display.close()
+					if event.type == pygame.QUIT:
+						print("Closing game...")
+						self.display.close()
+						playerDone = True
+						continue
+					if event.type == pygame.MOUSEBUTTONDOWN:
+						x, y = event.pos
+						cellX, cellY, boardnum = self.display.translateXY(x, y)
+
+						# TODO: ignore the click if the player has already tried that cell
+						if boardnum == AIBOARD:
+							playerDone = True
+							self.aiBoard.shoot(cellX, cellY)
+			else:
+				x, y = self.ai.makeMove(self)
+				self.humanBoard.shoot(x, y)
+
+			# Check for a winner
+			if self.humanBoard.defeated():
+				self.winner = AIBOARD
 				done = True
-				continue
-			if event.type == pygame.MOUSEBUTTONDOWN:
-				x, y = event.pos
-				cellX, cellY, boardnum = self.display.translateXY(x, y)
-				if boardnum == PLAYERBOARD:
-					board = self.humanBoard
-				else:
-					board = self.aiBoard
+			elif self.aiBoard.defeated():
+				self.winner = PLAYERBOARD
+				done = True
 
-				board.shoot(cellX, cellY)
+			self.turnCount += 1
+			self.humanTurn = not self.humanTurn
+
 			self.display.updateScreen(self)
 
+		# TODO: sleep after the game is done
+
 	def play(self):
-		# TODO: Initialize the display and render the empty grid
 		print("Initializing display...")
 		self.display = Display(self.size)
-		self.display.updateScreen(self)
 
-		print("Asking player to place ships...")
 		self.placeShips()
+		self.display.updateScreen(self)
 
 		print("Entering main game loop...")
 		self.gameLoop()
-
-		# TODO: declare the winner and ask to play again

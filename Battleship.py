@@ -4,5 +4,5 @@ from controller import Game
 
 # TODO: add command line parameters to change gameplay, eg. board size
 
-g = Game()
+g = Game(8)
 g.play()

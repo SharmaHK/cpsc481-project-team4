@@ -14,6 +14,7 @@ class ShipSegment:
 	def __str__(self):
 		return "X" if self.beenhit else " "
 
+# TODO: implement a generic segment parent class and inherit from it
 class WaterSegment:
 	def __init__(self):
 		self.miss = False
@@ -69,6 +70,12 @@ class Board:
 			return self.cells[x][y]
 		return None
 
+	def defeated(self):
+		for ship in self.ships:
+			if not ship.sunk:
+				return False
+		return True
+
 	def valid(self, x, y):
 		if (0 <= x < self.size) and (0 <= y < self.size):
 			return True
@@ -119,5 +126,6 @@ class Board:
 		newship = Ship(size)
 		for loc in locations:
 			self.cells[loc[0]][loc[1]] = ShipSegment(parent=newship)
+		self.ships.append(newship)
 
 		return True

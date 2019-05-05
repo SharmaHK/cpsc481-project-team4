@@ -90,9 +90,11 @@ class Display:
 				else:
 					pygame.draw.rect(self.screen, C_WATER, (dx, dy, CELLSIZE, CELLSIZE))
 
-		# TODO: Draw text indicating whoose turn it is and what their scores are
-		text = self.font.render("Hello world", True, (255, 255, 255))
-		self.screen.blit(text, (self.rightboardstart - GUTTER, 100))
+		if game.humanTurn:
+			text = self.font.render("Your turn", True, (255, 255, 255))
+		else:
+			text = self.font.render("AI thinking", True, (255, 255, 255))
+		self.screen.blit(text, (self.rightboardstart - GUTTER + 10, 100))
 
 		# Update the display
 		pygame.display.flip()
