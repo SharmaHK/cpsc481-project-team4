@@ -19,8 +19,6 @@ class ShipSegment(Segment):
 		return "X" if self.beenhit else " "
 
 class WaterSegment(Segment):
-	def __init__(self):
-		super().__init__()
 
 	def __str__(self):
 		return "M" if self.beenhit else " "

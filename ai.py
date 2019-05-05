@@ -16,3 +16,5 @@ class SimpleAI:
 
 		pygame.time.wait(self.delay)
 		return (x, y)
+
+# TODO: Implement a more advanced AI

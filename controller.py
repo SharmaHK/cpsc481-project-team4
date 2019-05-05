@@ -16,6 +16,8 @@ class Game:
 		self.winner = None
 
 	def placeShips(self):
+		# TODO: have the user decide where to place their ships
+
 		# Randomly generate player ships
 		remaining = 5
 		while remaining > 0:
@@ -55,7 +57,6 @@ class Game:
 						x, y = event.pos
 						cellX, cellY, boardnum = self.display.translateXY(x, y)
 
-						# TODO: ignore the click if the player has already tried that cell
 						if boardnum == AIBOARD and not self.aiBoard.at(cellX, cellY).beenhit:
 							playerDone = True
 							self.aiBoard.shoot(cellX, cellY)
