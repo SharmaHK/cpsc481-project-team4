@@ -10,6 +10,7 @@ C_AISHIP = (255, 0, 0)
 C_PLAYERHIT = C_AISHIP
 C_AIHIT = C_PLAYERSHIP
 C_SUNK = (128, 128, 128)
+C_MISS = (255, 255, 255)
 
 MARGIN = 5
 GUTTER = 150
@@ -65,12 +66,14 @@ class Display:
 						color = C_SUNK
 					else:
 						color = C_PLAYERSHIP
-					pygame.draw.rect(self.screen, color, (dx, dy, CELLSIZE, CELLSIZE))
 
+					pygame.draw.rect(self.screen, color, (dx, dy, CELLSIZE, CELLSIZE))
 					if hcell.beenhit:
 						pygame.draw.circle(self.screen, C_PLAYERHIT, (dx + int(CELLSIZE/2), dy + int(CELLSIZE/2)), HITRADIUS)
 				else:
 					pygame.draw.rect(self.screen, C_WATER, (dx, dy, CELLSIZE, CELLSIZE))
+					if hcell.beenhit:
+						pygame.draw.circle(self.screen, C_MISS, (dx + int(CELLSIZE/2), dy + int(CELLSIZE/2)), HITRADIUS)
 
 		# Draw the AI board
 		for y in range(0, game.size):
@@ -89,6 +92,8 @@ class Display:
 					pygame.draw.circle(self.screen, C_AIHIT, (dx + int(CELLSIZE/2), dy + int(CELLSIZE/2)), HITRADIUS)
 				else:
 					pygame.draw.rect(self.screen, C_WATER, (dx, dy, CELLSIZE, CELLSIZE))
+					if acell.beenhit:
+						pygame.draw.circle(self.screen, C_MISS, (dx + int(CELLSIZE/2), dy + int(CELLSIZE/2)), HITRADIUS)
 
 		if game.humanTurn:
 			text = self.font.render("Your turn", True, (255, 255, 255))

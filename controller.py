@@ -7,7 +7,7 @@ class Game:
 	def __init__(self, size=10):
 		self.humanBoard = Board(size)
 		self.aiBoard = Board(size)
-		self.ai = SimpleAI(1000)
+		self.ai = SimpleAI(100)
 		self.humanTurn = True
 		self.turnCount = 0
 		self.humanScore = 0
@@ -56,7 +56,7 @@ class Game:
 						cellX, cellY, boardnum = self.display.translateXY(x, y)
 
 						# TODO: ignore the click if the player has already tried that cell
-						if boardnum == AIBOARD:
+						if boardnum == AIBOARD and not self.aiBoard.at(cellX, cellY).beenhit:
 							playerDone = True
 							self.aiBoard.shoot(cellX, cellY)
 			else:

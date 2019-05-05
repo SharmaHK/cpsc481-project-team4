@@ -1,9 +1,13 @@
 # Declare directions for convenience
 UP, DOWN, LEFT, RIGHT = range(4)
 
-class ShipSegment:
-	def __init__(self, parent):
+class Segment:
+	def __init__(self):
 		self.beenhit = False
+
+class ShipSegment(Segment):
+	def __init__(self, parent):
+		super().__init__()
 		self.parent = parent
 		parent.segments.append(self)
 
@@ -14,13 +18,15 @@ class ShipSegment:
 	def __str__(self):
 		return "X" if self.beenhit else " "
 
-# TODO: implement a generic segment parent class and inherit from it
-class WaterSegment:
+class WaterSegment(Segment):
 	def __init__(self):
-		self.miss = False
+		super().__init__()
 
 	def __str__(self):
-		return "M" if self.miss else " "
+		return "M" if self.beenhit else " "
+
+	def hit(self):
+		self.beenhit = True
 
 class Ship:
 	def __init__(self, size):
@@ -61,7 +67,7 @@ class Board:
 		for x in range(0, size):
 			temp = []
 			for y in range(0, size):
-				temp.append(None)
+				temp.append(WaterSegment())
 			self.cells.append(temp)
 		self.ships = []
 
@@ -116,7 +122,7 @@ class Board:
 			elif slope == RIGHT:
 				dx += 1
 
-			if (self.valid(dx, dy)) and (self.at(dx, dy) is None):
+			if (self.valid(dx, dy)) and (self.at(dx, dy) is not ShipSegment):
 				locations.append([dx, dy])
 			else:
 				# If we can't place a ship at that location, return false
