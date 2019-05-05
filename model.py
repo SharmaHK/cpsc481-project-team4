@@ -33,7 +33,6 @@ class Ship:
 		self.sunk = False
 		self.size = size
 		self.hits = 0
-		# TODO: initialize these segments
 		self.segments = []
 
 	def updateHits(self):
@@ -104,7 +103,9 @@ class Board:
 		"""
 
 		assert slope in [UP, DOWN, LEFT, RIGHT], "Invalid slope given!"
-		assert self.valid(x, y), str(x) + " , " + str(y) + " Invalid location given!"
+		assert size > 0, "Can't add ship of size zero!"
+
+		print("Trying to place a ship at", x, y, "with slope", slope, "and size", size)
 
 		locations = []
 		locations.append([x, y])
@@ -122,13 +123,13 @@ class Board:
 			elif slope == RIGHT:
 				dx += 1
 
-			if (self.valid(dx, dy)) and (self.at(dx, dy) is not ShipSegment):
-				locations.append([dx, dy])
-			else:
-				# If we can't place a ship at that location, return false
-				return False
+			locations.append([dx, dy])
 
 		# Create a ship and create a ShipSegment for each location
+		for loc in locations:
+			if not self.valid(loc[0], loc[1]) or self.at(loc[0], loc[1]) is ShipSegment:
+				return False
+
 		newship = Ship(size)
 		for loc in locations:
 			self.cells[loc[0]][loc[1]] = ShipSegment(parent=newship)
