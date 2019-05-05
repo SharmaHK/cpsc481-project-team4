@@ -9,6 +9,7 @@ C_WATER = (0, 0, 255)
 C_AISHIP = (255, 0, 0)
 C_PLAYERHIT = C_AISHIP
 C_AIHIT = C_PLAYERSHIP
+C_SUNK = (128, 128, 128)
 
 MARGIN = 5
 GUTTER = 150
@@ -60,7 +61,12 @@ class Display:
 				hcell = game.humanBoard.at(x, y)
 
 				if isinstance(hcell, ShipSegment):
-					pygame.draw.rect(self.screen, C_PLAYERSHIP, (dx, dy, CELLSIZE, CELLSIZE))
+					if hcell.parent.sunk:
+						color = C_SUNK
+					else:
+						color = C_PLAYERSHIP
+					pygame.draw.rect(self.screen, color, (dx, dy, CELLSIZE, CELLSIZE))
+
 					if hcell.beenhit:
 						pygame.draw.circle(self.screen, C_PLAYERHIT, (dx + int(CELLSIZE/2), dy + int(CELLSIZE/2)), HITRADIUS)
 				else:
@@ -74,11 +80,13 @@ class Display:
 
 				acell = game.aiBoard.at(x, y)
 
-				if isinstance(acell, ShipSegment):
-					# TODO: Don't draw the ships here
-					pygame.draw.rect(self.screen, C_AISHIP, (dx, dy, CELLSIZE, CELLSIZE))
-					if acell.beenhit:
-						pygame.draw.circle(self.screen, C_AIHIT, (dx + int(CELLSIZE/2), dy + int(CELLSIZE/2)), HITRADIUS)
+				if isinstance(acell, ShipSegment) and acell.beenhit:
+					if acell.parent.sunk:
+						color = C_SUNK
+					else:
+						color = C_AISHIP
+					pygame.draw.rect(self.screen, color, (dx, dy, CELLSIZE, CELLSIZE))
+					pygame.draw.circle(self.screen, C_AIHIT, (dx + int(CELLSIZE/2), dy + int(CELLSIZE/2)), HITRADIUS)
 				else:
 					pygame.draw.rect(self.screen, C_WATER, (dx, dy, CELLSIZE, CELLSIZE))
 
