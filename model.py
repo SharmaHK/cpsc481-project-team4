@@ -12,7 +12,7 @@ class ShipSegment:
 		self.parent.updateHits()
 
 	def __str__(self):
-		return "X" if self.hit else " "
+		return "X" if self.beenhit else " "
 
 class WaterSegment:
 	def __init__(self):
@@ -30,13 +30,14 @@ class Ship:
 		self.segments = []
 
 	def updateHits(self):
-		hits = 0
+		self.hits = 0
 		for segment in self.segments:
-			if segment.hit:
-				hits += 1
+			if segment.beenhit:
+				self.hits += 1
 
-		if hits == self.size:
+		if self.hits == self.size:
 			self.sunk = True
+			print(self, "sunk!")
 
 	def __str__(self):
 		if self.size == 2:
@@ -64,7 +65,7 @@ class Board:
 		self.ships = []
 
 	def at(self, x, y):
-		if (0 <= x < self.size) and (0 <= y < self.size):
+		if self.valid(x, y):
 			return self.cells[x][y]
 		return None
 
@@ -108,7 +109,7 @@ class Board:
 			elif slope == RIGHT:
 				dx += 1
 
-			if self.valid(dx, dy):
+			if (self.valid(dx, dy)) and (self.at(dx, dy) is None):
 				locations.append([dx, dy])
 			else:
 				# If we can't place a ship at that location, return false

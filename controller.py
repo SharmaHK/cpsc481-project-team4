@@ -46,11 +46,14 @@ class Game:
 				done = True
 				continue
 			if event.type == pygame.MOUSEBUTTONDOWN:
-				# TODO: Handle mouseclicks and check for hits
-				# TODO: translate an (x, y) mouseclick into a hit/miss
 				x, y = event.pos
-				cellX, cellY, board = self.display.translateXY(x, y)
-				print("Mouseclick at", cellX, ",", cellY, "on board", self.display.translateBoard(board))
+				cellX, cellY, boardnum = self.display.translateXY(x, y)
+				if boardnum == PLAYERBOARD:
+					board = self.humanBoard
+				else:
+					board = self.aiBoard
+
+				board.shoot(cellX, cellY)
 			self.display.updateScreen(self)
 
 	def play(self):

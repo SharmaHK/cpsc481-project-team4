@@ -5,14 +5,15 @@ from model import *
 # Define constants
 C_BACKGROUND = (0, 0, 0)
 C_PLAYERSHIP = (0, 255, 0)
-C_PLAYERHIT = (255, 0, 255)
 C_WATER = (0, 0, 255)
 C_AISHIP = (255, 0, 0)
+C_PLAYERHIT = C_AISHIP
+C_AIHIT = C_PLAYERSHIP
 
 MARGIN = 5
 GUTTER = 150
 CELLSIZE = 25
-HITRADIUS = 25
+HITRADIUS = int(CELLSIZE/3)
 
 PLAYERBOARD, AIBOARD = range(2)
 
@@ -61,7 +62,7 @@ class Display:
 				if isinstance(hcell, ShipSegment):
 					pygame.draw.rect(self.screen, C_PLAYERSHIP, (dx, dy, CELLSIZE, CELLSIZE))
 					if hcell.beenhit:
-						pygame.draw.circle(self.screen, C_PLAYERHIT, (dx + HITRADIUS, dy + HITRADIUS), CELLSIZE)
+						pygame.draw.circle(self.screen, C_PLAYERHIT, (dx + int(CELLSIZE/2), dy + int(CELLSIZE/2)), HITRADIUS)
 				else:
 					pygame.draw.rect(self.screen, C_WATER, (dx, dy, CELLSIZE, CELLSIZE))
 
@@ -77,7 +78,7 @@ class Display:
 					# TODO: Don't draw the ships here
 					pygame.draw.rect(self.screen, C_AISHIP, (dx, dy, CELLSIZE, CELLSIZE))
 					if acell.beenhit:
-						pygame.draw.rect(self.screen, C_AISHIP, (dx, dy, CELLSIZE, CELLSIZE))
+						pygame.draw.circle(self.screen, C_AIHIT, (dx + int(CELLSIZE/2), dy + int(CELLSIZE/2)), HITRADIUS)
 				else:
 					pygame.draw.rect(self.screen, C_WATER, (dx, dy, CELLSIZE, CELLSIZE))
 
