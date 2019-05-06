@@ -103,8 +103,6 @@ class Board:
 		assert slope in [UP, DOWN, LEFT, RIGHT], "Invalid slope given!"
 		assert size > 0, "Can't add ship of size zero!"
 
-		print("Trying to place a ship at", x, y, "with slope", slope, "and size", size)
-
 		locations = []
 		locations.append([x, y])
 
@@ -125,7 +123,7 @@ class Board:
 
 		# Create a ship and create a ShipSegment for each location
 		for loc in locations:
-			if not self.valid(loc[0], loc[1]) or self.at(loc[0], loc[1]) is ShipSegment:
+			if not self.valid(loc[0], loc[1]) or isinstance(self.at(loc[0], loc[1]), ShipSegment):
 				return False
 
 		newship = Ship(size)
