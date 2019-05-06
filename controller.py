@@ -7,11 +7,9 @@ class Game:
 	def __init__(self, size=10):
 		self.humanBoard = Board(size)
 		self.aiBoard = Board(size)
-		self.ai = BetterAI(300)
+		self.ai = BetterAI(1000)
 		self.humanTurn = True
 		self.turnCount = 0
-		self.humanScore = 0
-		self.aiScore = 0
 		self.size = size
 		self.winner = None
 
@@ -23,7 +21,7 @@ class Game:
 		while remaining > 0:
 			x = random.randint(0, self.size-1)
 			y = random.randint(0, self.size-1)
-			size = random.randint(1, 5)
+			size = random.randint(2, 5)
 			slope = random.randint(UP, RIGHT)
 			if self.humanBoard.addShip(x, y, size, slope):
 				remaining -= 1
@@ -33,7 +31,7 @@ class Game:
 		while remaining > 0:
 			x = random.randint(0, self.size-1)
 			y = random.randint(0, self.size-1)
-			size = random.randint(1, 5)
+			size = random.randint(2, 5)
 			slope = random.randint(UP, RIGHT)
 			if self.aiBoard.addShip(x, y, size, slope):
 				remaining -= 1

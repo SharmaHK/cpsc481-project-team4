@@ -95,11 +95,23 @@ class Display:
 					if acell.beenhit:
 						pygame.draw.circle(self.screen, C_MISS, (dx + int(CELLSIZE/2), dy + int(CELLSIZE/2)), HITRADIUS)
 
+		# Draw the text elements in the middle
+		textCenter = self.rightboardstart - int(GUTTER/2)
+
 		if game.humanTurn:
-			text = self.font.render("Your turn", True, (255, 255, 255))
+			turnText = self.font.render("Your turn", True, (255, 255, 255))
 		else:
-			text = self.font.render("AI thinking", True, (255, 255, 255))
-		self.screen.blit(text, (self.rightboardstart - GUTTER + 10, 100))
+			turnText = self.font.render("AI thinking", True, (255, 255, 255))
+		w = turnText.get_width()
+		self.screen.blit(turnText, (textCenter - int(w/2), 30))
+
+		scoreText = self.font.render("Score:", True, (255, 255, 255))
+		w = scoreText.get_width()
+		self.screen.blit(scoreText, (textCenter - int(w/2), 100))
+
+		score = self.font.render(str(game.aiBoard.hits) +" - " + str(game.humanBoard.hits), True, (255, 255, 255))
+		w = score.get_width()
+		self.screen.blit(score, (textCenter - int(w/2), 130))
 
 		# Update the display
 		pygame.display.flip()

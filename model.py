@@ -67,6 +67,7 @@ class Board:
 				temp.append(WaterSegment())
 			self.cells.append(temp)
 		self.ships = []
+		self.hits = 0
 
 	def at(self, x, y):
 		if self.valid(x, y):
@@ -88,9 +89,9 @@ class Board:
 		target = self.at(x, y)
 		if target:
 			target.hit()
-			return True
-		else:
-			return False
+
+		if isinstance(target, ShipSegment):
+			self.hits += 1
 
 
 	def addShip(self, x, y, size, slope):
