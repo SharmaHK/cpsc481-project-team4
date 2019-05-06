@@ -42,6 +42,7 @@ class Game:
 
 		while not done:
 			if self.humanTurn:
+				pygame.event.set_allowed([pygame.QUIT, pygame.MOUSEBUTTONDOWN])
 				playerDone = False
 				while not playerDone:
 					event = pygame.event.wait()
@@ -58,6 +59,10 @@ class Game:
 						if boardnum == AIBOARD and self.aiBoard.at(cellX, cellY) is not None and not self.aiBoard.at(cellX, cellY).beenhit:
 							playerDone = True
 							self.aiBoard.shoot(cellX, cellY)
+
+							# Disable further events from piling up until the AI is finished making it's move
+							pygame.event.set_allowed(None)
+							pygame.event.set_allowed(pygame.QUIT)
 			else:
 				self.ai.makeMove(self)
 
@@ -75,6 +80,9 @@ class Game:
 			self.display.updateScreen(self)
 
 		# TODO: sleep after the game is done
+		pygame.event.set_allowed(pygame.QUIT)
+		event = pygame.event.wait()
+		return
 
 	def play(self):
 		print("Initializing display...")
