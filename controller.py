@@ -50,7 +50,7 @@ class Game:
 						print("Closing game...")
 						self.display.close()
 						playerDone = True
-						continue
+						return
 					if event.type == pygame.MOUSEBUTTONDOWN:
 						x, y = event.pos
 						cellX, cellY, boardnum = self.display.translateXY(x, y)
