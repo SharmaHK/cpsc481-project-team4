@@ -7,7 +7,7 @@ class Game:
 	def __init__(self, size=10):
 		self.humanBoard = Board(size)
 		self.aiBoard = Board(size)
-		self.ai = SimpleAI(100)
+		self.ai = BetterAI(300)
 		self.humanTurn = True
 		self.turnCount = 0
 		self.humanScore = 0
@@ -57,12 +57,11 @@ class Game:
 						x, y = event.pos
 						cellX, cellY, boardnum = self.display.translateXY(x, y)
 
-						if boardnum == AIBOARD and not self.aiBoard.at(cellX, cellY).beenhit:
+						if boardnum == AIBOARD and self.aiBoard.at(cellX, cellY) is not None and not self.aiBoard.at(cellX, cellY).beenhit:
 							playerDone = True
 							self.aiBoard.shoot(cellX, cellY)
 			else:
-				x, y = self.ai.makeMove(self)
-				self.humanBoard.shoot(x, y)
+				self.ai.makeMove(self)
 
 			# Check for a winner
 			if self.humanBoard.defeated():
