@@ -14,7 +14,7 @@ C_MISS = (255, 255, 255)
 
 MARGIN = 5
 GUTTER = 150
-CELLSIZE = 25
+CELLSIZE = 50
 HITRADIUS = int(CELLSIZE/3)
 
 PLAYERBOARD, AIBOARD = range(2)
@@ -112,6 +112,17 @@ class Display:
 		score = self.font.render(str(game.aiBoard.hits) +" - " + str(game.humanBoard.hits), True, (255, 255, 255))
 		w = score.get_width()
 		self.screen.blit(score, (textCenter - int(w/2), 130))
+
+		winner = None
+		if game.winner == PLAYERBOARD:
+			winner = "Player"
+		elif game.winner == AIBOARD:
+			winner = "AI"
+
+		if winner:
+			winText = self.font.render(str(winner) + " wins!", True, (255, 255, 255))
+			w = winText.get_width()
+			self.screen.blit(winText, (textCenter - int(w/2), 180))
 
 		# Update the display
 		pygame.display.flip()
