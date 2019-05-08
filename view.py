@@ -61,19 +61,29 @@ class Display:
 
 				hcell = game.humanBoard.at(x, y)
 
-				if isinstance(hcell, ShipSegment):
-					if hcell.parent.sunk:
-						color = C_SUNK
-					else:
-						color = C_PLAYERSHIP
+				if not game.debug:
+					if isinstance(hcell, ShipSegment):
+						if hcell.parent.sunk:
+							color = C_SUNK
+						else:
+							color = C_PLAYERSHIP
 
+						pygame.draw.rect(self.screen, color, (dx, dy, CELLSIZE, CELLSIZE))
+						if hcell.beenhit:
+							pygame.draw.circle(self.screen, C_PLAYERHIT, (dx + int(CELLSIZE/2), dy + int(CELLSIZE/2)), HITRADIUS)
+					else:
+						pygame.draw.rect(self.screen, C_WATER, (dx, dy, CELLSIZE, CELLSIZE))
+						if hcell.beenhit:
+							pygame.draw.circle(self.screen, C_MISS, (dx + int(CELLSIZE/2), dy + int(CELLSIZE/2)), HITRADIUS)
+				elif game.ai.state:
+					prob = game.ai.state[x][y]
+					red = prob * 3
+					blue = prob * -8.5
+					red = min(max(0, red), 255)
+					blue = min(max(0, blue), 255)
+
+					color = (red, 0, blue)
 					pygame.draw.rect(self.screen, color, (dx, dy, CELLSIZE, CELLSIZE))
-					if hcell.beenhit:
-						pygame.draw.circle(self.screen, C_PLAYERHIT, (dx + int(CELLSIZE/2), dy + int(CELLSIZE/2)), HITRADIUS)
-				else:
-					pygame.draw.rect(self.screen, C_WATER, (dx, dy, CELLSIZE, CELLSIZE))
-					if hcell.beenhit:
-						pygame.draw.circle(self.screen, C_MISS, (dx + int(CELLSIZE/2), dy + int(CELLSIZE/2)), HITRADIUS)
 
 		# Draw the AI board
 		for y in range(0, game.size):

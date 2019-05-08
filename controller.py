@@ -12,6 +12,7 @@ class Game:
 		self.turnCount = 0
 		self.size = size
 		self.winner = None
+		self.debug = False
 
 	def placeShips(self):
 		# TODO: have the user decide where to place their ships
@@ -42,7 +43,7 @@ class Game:
 
 		while not done:
 			if self.humanTurn:
-				pygame.event.set_allowed([pygame.QUIT, pygame.MOUSEBUTTONDOWN])
+				pygame.event.set_allowed([pygame.QUIT, pygame.MOUSEBUTTONDOWN, pygame.KEYDOWN])
 				playerDone = False
 				while not playerDone:
 					event = pygame.event.wait()
@@ -52,7 +53,7 @@ class Game:
 						self.display.close()
 						playerDone = True
 						return
-					if event.type == pygame.MOUSEBUTTONDOWN:
+					elif event.type == pygame.MOUSEBUTTONDOWN:
 						x, y = event.pos
 						cellX, cellY, boardnum = self.display.translateXY(x, y)
 
@@ -63,6 +64,10 @@ class Game:
 							# Disable further events from piling up until the AI is finished making it's move
 							pygame.event.set_allowed(None)
 							pygame.event.set_allowed(pygame.QUIT)
+					elif event.type == pygame.KEYDOWN:
+						if event.key == pygame.K_d:
+							self.debug = not self.debug
+							self.display.updateScreen(self)
 			else:
 				self.ai.makeMove(self)
 
