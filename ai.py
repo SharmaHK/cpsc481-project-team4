@@ -72,12 +72,15 @@ class BetterAI:
 			v = loc[1]
 			if (0 <= u < self.size) and (0 <= v < self.size):
 				self.state[u][v] += delta
+				self.state[u][v] = min(max(self.state[u][v], 0), 255)
 
 		for loc in far:
 			u = loc[0]
 			v = loc[1]
 			if (0 <= u < self.size) and (0 <= v < self.size):
 				self.state[u][v] += (delta/2)
+				self.state[u][v] = min(max(self.state[u][v], 0), 255)
+
 
 	def makeMove(self, game):
 
@@ -88,7 +91,7 @@ class BetterAI:
 			for u in range(0, game.size):
 				self.state.append([])
 				for v in range(0, game.size):
-					self.state[u].append(0)
+					self.state[u].append(0.5)
 
 		# Find our best guess
 		x, y = self.bestGuess()
@@ -100,10 +103,10 @@ class BetterAI:
 		game.humanBoard.shoot(x, y)
 
 		# Make sure we don't pick that cell again
-		self.state[x][y] = -1000
+		self.state[x][y] = 0
 
 		# Check if we hit a ship and update our state
 		if isinstance(game.humanBoard.at(x, y), ShipSegment):
-			self.updateSurrounding(x, y, 50)
+			self.updateSurrounding(x, y, 0.2)
 		else:
-			self.updateSurrounding(x, y, -10)
+			self.updateSurrounding(x, y, -0.1)
