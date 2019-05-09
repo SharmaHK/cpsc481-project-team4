@@ -77,13 +77,13 @@ class Display:
 							pygame.draw.circle(self.screen, C_MISS, (dx + int(CELLSIZE/2), dy + int(CELLSIZE/2)), HITRADIUS)
 				elif game.ai.state:
 					prob = game.ai.state[x][y]
-					red = prob * 3
-					blue = prob * -8.5
-					red = min(max(0, red), 255)
-					blue = min(max(0, blue), 255)
+					a = pygame.Vector3((0, 0, 255))
+					b = pygame.Vector3((255, 0, 0))
 
-					color = (red, 0, blue)
-					pygame.draw.rect(self.screen, color, (dx, dy, CELLSIZE, CELLSIZE))
+					t = max(min((prob - 0.2), 1), 0)
+
+					color = a.lerp(b, t)
+					pygame.draw.rect(self.screen, (color.x, color.y, color.z), (dx, dy, CELLSIZE, CELLSIZE))
 
 		# Draw the AI board
 		for y in range(0, game.size):
