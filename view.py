@@ -114,7 +114,7 @@ class Display:
 					a = pygame.Vector3((0, 0, 0))
 					b = pygame.Vector3((255, 255, 255))
 
-					t = max(min((prob - 0.2), 1), 0)
+					t = max(min((prob), 1), 0)
 
 					color = a.lerp(b, t)
 					pygame.draw.rect(self.screen, (color.x, color.y, color.z), (dx, dy, CELLSIZE, CELLSIZE))

@@ -107,6 +107,6 @@ class BetterAI:
 
 		# Check if we hit a ship and update our state
 		if isinstance(game.humanBoard.at(x, y), ShipSegment):
-			self.updateSurrounding(x, y, 0.2)
+			self.updateSurrounding(x, y, 0.25)
 		else:
-			self.updateSurrounding(x, y, -0.1)
+			self.updateSurrounding(x, y, -0.15)
