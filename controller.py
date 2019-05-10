@@ -7,7 +7,7 @@ class Game:
 	def __init__(self, size=10):
 		self.humanBoard = Board(size)
 		self.aiBoard = Board(size)
-		self.ai = BetterAI(1000)
+		self.ai = BetterAI(300)
 		self.humanTurn = True
 		self.turnCount = 0
 		self.size = size

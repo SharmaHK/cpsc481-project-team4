@@ -111,8 +111,8 @@ class Display:
 
 				elif game.ai.state:
 					prob = game.ai.state[x][y]
-					a = pygame.Vector3((0, 0, 255))
-					b = pygame.Vector3((255, 0, 0))
+					a = pygame.Vector3((0, 0, 0))
+					b = pygame.Vector3((255, 255, 255))
 
 					t = max(min((prob - 0.2), 1), 0)
 
