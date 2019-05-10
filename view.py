@@ -6,11 +6,9 @@ from model import *
 C_BACKGROUND = (0, 0, 0)
 C_PLAYERSHIP = (0, 255, 0)
 C_WATER = (0, 0, 255)
-C_AISHIP = (255, 0, 0)
-C_PLAYERHIT = C_AISHIP
-C_AIHIT = C_PLAYERSHIP
-C_SUNK = (128, 128, 128)
+C_HIT = (255, 0, 0)
 C_MISS = (255, 255, 255)
+C_SUNK = (128, 128, 128)
 
 MARGIN = 5
 GUTTER = 150
@@ -49,11 +47,51 @@ class Display:
 
 		return (u, v)
 
+	def drawShip(self, ship):
+
+		width = 0
+		height = 0
+
+		length = (CELLSIZE * ship.size) + (MARGIN * (ship.size - 1))
+
+		if ship.slope == UP:
+			x, y = self.cellXY(ship.x, ship.y - (ship.size - 1), PLAYERBOARD)
+			width = CELLSIZE
+			height = length
+
+		elif ship.slope == DOWN:
+			x, y = self.cellXY(ship.x, ship.y, PLAYERBOARD)
+			width = CELLSIZE
+			height = length
+
+		elif ship.slope == LEFT:
+			x, y = self.cellXY(ship.x - (ship.size - 1), ship.y, PLAYERBOARD)
+			width = length
+			height = CELLSIZE
+
+		elif ship.slope == RIGHT:
+			x, y = self.cellXY(ship.x, ship.y, PLAYERBOARD)
+			width = length
+			height = CELLSIZE
+
+
+		if ship.sunk:
+			color = C_SUNK
+		else:
+			color = C_PLAYERSHIP
+
+		pygame.draw.rect(self.screen, color, (x, y, width, height))
+
 	def updateScreen(self, game):
 		# Clear the background
 		self.screen.fill(C_BACKGROUND)
 
-		# Draw the player board
+		# Draw the ships
+		if not game.debug:
+			for ship in game.humanBoard.ships:
+				self.drawShip(ship)
+
+		# Draw the water, misses or debug states
 		for y in range(0, game.size):
 			for x in range(0, game.size):
 
@@ -62,19 +100,15 @@ class Display:
 				hcell = game.humanBoard.at(x, y)
 
 				if not game.debug:
-					if isinstance(hcell, ShipSegment):
-						if hcell.parent.sunk:
-							color = C_SUNK
-						else:
-							color = C_PLAYERSHIP
-
-						pygame.draw.rect(self.screen, color, (dx, dy, CELLSIZE, CELLSIZE))
-						if hcell.beenhit:
-							pygame.draw.circle(self.screen, C_PLAYERHIT, (dx + int(CELLSIZE/2), dy + int(CELLSIZE/2)), HITRADIUS)
-					else:
+					if isinstance(hcell, WaterSegment):
 						pygame.draw.rect(self.screen, C_WATER, (dx, dy, CELLSIZE, CELLSIZE))
 						if hcell.beenhit:
 							pygame.draw.circle(self.screen, C_MISS, (dx + int(CELLSIZE/2), dy + int(CELLSIZE/2)), HITRADIUS)
+
+					elif isinstance(hcell, ShipSegment):
+						if hcell.beenhit:
+							pygame.draw.circle(self.screen, C_HIT, (dx + int(CELLSIZE/2), dy + int(CELLSIZE/2)), HITRADIUS)
+
 				elif game.ai.state:
 					prob = game.ai.state[x][y]
 					a = pygame.Vector3((0, 0, 255))
@@ -93,16 +127,12 @@ class Display:
 
 				acell = game.aiBoard.at(x, y)
 
-				if isinstance(acell, ShipSegment) and acell.beenhit:
-					if acell.parent.sunk:
-						color = C_SUNK
+				pygame.draw.rect(self.screen, C_WATER, (dx, dy, CELLSIZE, CELLSIZE))
+
+				if acell.beenhit:
+					if isinstance(acell, ShipSegment):
+						pygame.draw.circle(self.screen, C_HIT, (dx + int(CELLSIZE/2), dy + int(CELLSIZE/2)), HITRADIUS)
 					else:
-						color = C_AISHIP
-					pygame.draw.rect(self.screen, color, (dx, dy, CELLSIZE, CELLSIZE))
-					pygame.draw.circle(self.screen, C_AIHIT, (dx + int(CELLSIZE/2), dy + int(CELLSIZE/2)), HITRADIUS)
-				else:
-					pygame.draw.rect(self.screen, C_WATER, (dx, dy, CELLSIZE, CELLSIZE))
-					if acell.beenhit:
 						pygame.draw.circle(self.screen, C_MISS, (dx + int(CELLSIZE/2), dy + int(CELLSIZE/2)), HITRADIUS)
 
 		# Draw the text elements in the middle

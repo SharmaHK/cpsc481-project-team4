@@ -27,11 +27,14 @@ class WaterSegment(Segment):
 		self.beenhit = True
 
 class Ship:
-	def __init__(self, size):
+	def __init__(self, x, y, size, slope):
 		self.sunk = False
 		self.size = size
 		self.hits = 0
 		self.segments = []
+		self.slope = slope
+		self.x = x
+		self.y = y
 
 	def updateHits(self):
 		self.hits = 0
@@ -127,7 +130,7 @@ class Board:
 			if not self.valid(loc[0], loc[1]) or isinstance(self.at(loc[0], loc[1]), ShipSegment):
 				return False
 
-		newship = Ship(size)
+		newship = Ship(x, y, size, slope)
 		for loc in locations:
 			self.cells[loc[0]][loc[1]] = ShipSegment(parent=newship)
 		self.ships.append(newship)
