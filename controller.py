@@ -18,24 +18,22 @@ class Game:
 		# TODO: have the user decide where to place their ships
 
 		# Randomly generate player ships
-		remaining = 5
-		while remaining > 0:
+		remaining = [5, 4, 3, 3, 2]
+		while len(remaining) > 0:
 			x = random.randint(0, self.size-1)
 			y = random.randint(0, self.size-1)
-			size = random.randint(2, 5)
 			slope = random.randint(UP, RIGHT)
-			if self.humanBoard.addShip(x, y, size, slope):
-				remaining -= 1
+			if self.humanBoard.addShip(x, y, remaining[len(remaining) - 1], slope):
+				remaining.pop()
 
 		# Randomly generate AI ships
-		remaining = 5
-		while remaining > 0:
+		remaining = [5, 4, 3, 3, 2]
+		while len(remaining) > 0:
 			x = random.randint(0, self.size-1)
 			y = random.randint(0, self.size-1)
-			size = random.randint(2, 5)
 			slope = random.randint(UP, RIGHT)
-			if self.aiBoard.addShip(x, y, size, slope):
-				remaining -= 1
+			if self.aiBoard.addShip(x, y, remaining[len(remaining) - 1], slope):
+				remaining.pop()
 
 	def gameLoop(self):
 		self.display.updateScreen(self)
