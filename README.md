@@ -20,5 +20,5 @@ Before play begins, each player secretly arranges their ships on their primary g
 ## How to Run
 First make sure you have pygame installed.
 ```
-python3 Battleship.py
+sudo python3 Battleship.py
 ```
