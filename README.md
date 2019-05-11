@@ -23,7 +23,8 @@ First make sure you have pygame installed.
 sudo python3 Battleship.py
 ```
 
-##The Files
+## The Files
+
 Battleship.py is the main file where the user runs on the command line ‘python Battleship.py’. As of now, this file only contains a few lines of code that start up the game. The to-do for this file is to add parameters to change the gameplay, such as the board size. The default board size will be a 10 by 10 grid as that is the standard board size listed in the rulebook. This file has remained the same since the last update.
 
 Controller.py contains the class Game. The constructor sets up the human board, sets up the AI board, sets the human’s turn as true, initializes the turn count to 0, and sets the size to 10. The size of both boards (human and AI) are a 10x10 grid as of now. There are also three functions within the Game class: placeShips(), gameLoop(), and play(). 
